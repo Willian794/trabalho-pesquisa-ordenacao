@@ -1,76 +1,48 @@
 package models;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
-public class Arquivo 
+public class Arquivo extends File
 {
-	private String pathName;
-	private BufferedReader reader;
-	private BufferedWriter writer;
+	private static final long serialVersionUID = 1L;
 
-	public Arquivo(String pathName) throws IOException
+	public Arquivo(String caminhoArquivo) throws IOException
 	{
-		if (new File(this.pathName).isFile() == false)
-			throw new IOException("Caminho não leva a um arquivo, ou o arquivo é inexistente.");
-		
-		this.pathName = pathName;
-		this.reader = new BufferedReader(new FileReader(this.pathName));
-		this.writer = new BufferedWriter(new FileWriter(this.pathName));
+		super(caminhoArquivo);
 	}
 	
-	public boolean escrever(String dado)
+	public ArrayList<String> lerLinhas()
 	{
-		String conteudo = "";
-		String linha;
 		try 
 		{
-			linha = this.reader.readLine();
-			while (linha != null)
-			{
-				conteudo += linha + "\n";
-				linha = this.reader.readLine();
-			}
-			this.writer.write(conteudo);
-			return true;
-		}
-		catch (IOException e) {return false;}
-	}
-	
-	public boolean escrever(int linha, String dado)
-	{
-		String conteudo = "";
-		String conteudoLinha;
-		try 
-		{
-			conteudoLinha = this.reader.readLine();
+			ArrayList<String> conteudo = new ArrayList<>();
+			BufferedReader reader = new BufferedReader(new FileReader(super.getPath()));
+			String conteudoLinha = reader.readLine();
+			
 			while (conteudoLinha != null)
 			{
-				conteudo += conteudoLinha + "\n";
-				conteudoLinha = this.reader.readLine();
+				conteudo.add(conteudoLinha);
+				conteudoLinha = reader.readLine();
 			}
-			this.writer.write(conteudo);
-			return true;
-		}
-		catch (IOException e) {return false;}
+			
+			reader.close();
+			return conteudo;
+		} catch (IOException e) {return null;}
 	}
-	
-	/*
-	// INCOMPLETO
-	public int getNumeroLinhas()
+
+	public long contarLinhas()
 	{
-		int i = 0;
+		long contador = -1;
 		try 
 		{
-			while (this.reader.readLine() != null)
-				i++;
-			this.reader.
-		}
-		catch (IOException e) {return -1;}
+			contador = Files.lines(Paths.get(super.getPath())).count();
+		} catch (IOException e) {}
+		return contador;
 	}
-	*/
 }

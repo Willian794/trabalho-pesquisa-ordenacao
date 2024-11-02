@@ -1,5 +1,6 @@
 package main;
 
-public class App {
-
+public class App
+{
+	
 }
