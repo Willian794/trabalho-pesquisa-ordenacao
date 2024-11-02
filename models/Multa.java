@@ -3,8 +3,8 @@ package models;
 public class Multa 
 {
 	private String placa, nome, local; 
-	Data data;
-	Horario horario;
+	private Data data;
+	private Horario horario;
 	
 	public Multa(String placa, String nome, String local, Data data, Horario horario) 
 	{
