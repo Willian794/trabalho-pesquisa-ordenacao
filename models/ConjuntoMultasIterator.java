@@ -3,12 +3,12 @@ package models;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class RegistroDeMultasIterator implements Iterator<Multa>
+public class ConjuntoMultasIterator implements Iterator<Multa>
 {
 	private int indice;
 	private ArrayList<Multa> multas;
 	
-	public RegistroDeMultasIterator(ArrayList<Multa> multas)
+	public ConjuntoMultasIterator(ArrayList<Multa> multas)
 	{
 		this.indice = -1;
 		this.multas = multas;

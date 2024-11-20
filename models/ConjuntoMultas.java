@@ -3,11 +3,11 @@ package models;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class RegistroDeMultas implements Iterable<Multa>
+public class ConjuntoMultas implements Iterable<Multa>
 {
 	private ArrayList<Multa> multas;
 	
-	public RegistroDeMultas(Arquivo arquivo)
+	public ConjuntoMultas(Arquivo arquivo)
 	{
 		multas = new ArrayList<>();
 		ArrayList<String> linhas = arquivo.lerLinhas();
@@ -27,9 +27,14 @@ public class RegistroDeMultas implements Iterable<Multa>
 		}
 	}
 
+	public int getQuant()
+	{
+		return multas.size();
+	}
+	
 	@Override
 	public Iterator<Multa> iterator() 
 	{
-		return new RegistroDeMultasIterator(this.multas);
+		return new ConjuntoMultasIterator(this.multas);
 	}
 }
