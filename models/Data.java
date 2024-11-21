@@ -4,7 +4,8 @@ public class Data
 {
 	private int dia, mes, ano;
 
-	public Data(int dia, int mes, int ano) {
+	public Data(int dia, int mes, int ano) 
+	{
 		this.dia = dia % 31;
 		this.mes = mes % 12;
 		this.ano = ano;
@@ -24,8 +25,14 @@ public class Data
 
 	public int getAno() {return ano;}
 
+	public int compareTo(Data comparacao) // retorna em dias
+	{
+		return (this.ano - comparacao.ano) * 365 + (this.mes - comparacao.mes) * 30 + (this.dia - comparacao.dia);
+	}
+	
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return (dia < 10 ? "0" + dia : dia)  + "/" + (mes < 10 ? "0" + mes : mes) + "/" + (ano < 10 ? "0" + ano : ano);
 	}
 }
