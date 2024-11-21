@@ -34,4 +34,9 @@ public class Multa
 	public Horario getHorario() {
 		return horario;
 	}
+	
+	@Override
+	public String toString() {
+		return placa + ", " + data + ", " + horario + ", " + nome + ", " + local + ".";
+	}
 }

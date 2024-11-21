@@ -23,4 +23,9 @@ public class Data
 	public int getMes() {return mes;}
 
 	public int getAno() {return ano;}
+
+	@Override
+	public String toString() {
+		return (dia < 10 ? "0" + dia : dia)  + "/" + (mes < 10 ? "0" + mes : mes) + "/" + (ano < 10 ? "0" + ano : ano);
+	}
 }

@@ -19,4 +19,9 @@ public class Horario
 	public int getHora() {return hora;}
 
 	public int getMinuto() {return minuto;}
+
+	@Override
+	public String toString() {
+		return (hora < 10 ? "0" + hora : hora) + ":" + (minuto < 10 ? "0" + minuto : minuto);
+	}
 }
