@@ -1,21 +1,21 @@
 package models;
 
-public class Temporizador 
+public class Cronometrador 
 {
 	public enum MedidaTempo {MILISEGUNDOS, SEGUNDOS, MINUTOS, HORAS};
 	private Long tempoInicial, tempoFinal;
 	
-	public void iniciarContagem() 
+	public void iniciar() 
 	{
 		this.tempoInicial = System.currentTimeMillis();
 	}
 	
-	public void finalizarContagem()
+	public void finalizar()
 	{
 		this.tempoFinal = System.currentTimeMillis();
 	}
 	
-	public Double calcularDeltaTempo(MedidaTempo medidaTempo)
+	public Double getDeltaTempo(MedidaTempo medidaTempo)
 	{
 		if (tempoInicial == null || tempoFinal == null)
 			return null;
