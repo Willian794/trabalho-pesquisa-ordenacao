@@ -57,6 +57,9 @@ public class Arquivo extends File
 	{
 		try
 		{
+			if (!super.exists())
+				super.createNewFile();
+			
 			BufferedReader reader = new BufferedReader(new FileReader(super.getPath()));
 			String conteudoLinha = reader.readLine(), arquivo = "";
 			int contador = 0;
