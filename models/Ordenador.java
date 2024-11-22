@@ -24,11 +24,9 @@ public class Ordenador
 		int direita = 2 * i + 2;
 
 		if (esquerda < n && comparar(multas.get(esquerda),multas.get(maior)) > 0)
-		//if (esquerda < n && multas.get(esquerda).getPlaca().compareTo(multas.get(maior).getPlaca()) > 0)
 			maior = esquerda;
 
 		if (direita < n && comparar(multas.get(direita),multas.get(maior)) > 0)
-		//if (direita < n && multas.get(direita).getPlaca().compareTo(multas.get(maior).getPlaca()) > 0)
 			maior = direita;
 
 		if (maior != i) 
@@ -61,5 +59,31 @@ public class Ordenador
 				return horario1.compareTo(horario2);
 			}
 		}
+	}
+
+	// Método de ordenação QuickSort
+	public static void ordenarComQuickSort (ConjuntoMultas multas) {quickSort (0, multas.getQuant() - 1, multas);}
+	private static void quickSort (int esq, int dir, ConjuntoMultas multas)
+	{
+		Multa pivo;
+		int i = esq, j = dir;
+		pivo = multas.get((i+j)/2);
+		do 
+		{
+			while (comparar(multas.get(i), pivo) < 0)
+				i++;
+			while (comparar(multas.get(j), pivo) > 0)
+				j--;
+			if (i <= j) 
+			{
+				multas.trocar(i, j);
+				i++;
+				j--;
+			}
+		} while (i <= j);
+		if (esq < j)
+			quickSort(esq, j, multas);
+		if (dir > i)
+			quickSort(i, dir, multas);
 	}
 }
