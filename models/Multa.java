@@ -1,6 +1,6 @@
 package models;
 
-public class Multa 
+public class Multa implements Item
 {
 	private String placa, nome, local; 
 	private Data data;
@@ -15,24 +15,44 @@ public class Multa
 		this.horario = horario;
 	}
 
-	public String getPlaca() {
-		return placa;
-	}
+	public String getPlaca() {return placa;}
+	public String getNome() {return nome;}
+	public String getLocal() {return local;}
+	public Data getData() {return data;}
+	public Horario getHorario() {return horario;}
+	
+	@Override
+	public Object getChavePrimaria() {return this.getPlaca();}
 
-	public String getNome() {
-		return nome;
-	}
+	@Override
+	public Object getChaveSecundaria() {return this.getData();}
 
-	public String getLocal() {
-		return local;
-	}
+	@Override
+	public Object getChaveTerciaria() {return this.getHorario();}
 
-	public Data getData() {
-		return data;
-	}
-
-	public Horario getHorario() {
-		return horario;
+	@Override
+	public int compareTo(Item itemComparacao) {
+		String placa1 = this.getPlaca(); 
+		String placa2 = (String) itemComparacao.getChavePrimaria();
+		int comparacaoPlaca = placa1.compareTo(placa2); 
+		
+		if (comparacaoPlaca != 0)
+			return comparacaoPlaca;
+		else 
+		{
+			Data data1 = this.getData();
+			Data data2 = (Data) itemComparacao.getChaveSecundaria();
+			int comparacaoData = data1.compareTo(data2);
+			
+			if (comparacaoData != 0)
+				return comparacaoData;
+			else
+			{
+				Horario horario1 = this.getHorario();
+				Horario horario2 = (Horario) itemComparacao.getChaveTerciaria();
+				return horario1.compareTo(horario2);
+			}
+		}
 	}
 	
 	@Override
