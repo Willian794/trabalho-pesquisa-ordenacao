@@ -3,87 +3,118 @@ package models;
 public class Ordenador
 {
 	// Método de Ordenção HeapSort
-	public static void ordenarComHeapSort(ConjuntoMultas multas)
-	{
-		int n = multas.getQuant();
+	public static void ordenarComHeapSort(Colecao<?> colecao)
+	{ 
+		int n = colecao.size();
 
 		for (int i = n / 2 - 1; i >= 0; i--)
-			refazHeap(multas, n, i);
+			refazHeap((Colecao<Item>) colecao, n, i);
 
 		for (int i = n - 1; i > 0; i--) 
 		{
-			multas.trocar(0, i);
-			refazHeap(multas, i, 0);
+			colecao.trocar(0, i);
+			refazHeap((Colecao<Item>) colecao, i, 0);
 		}
 	}
 
-	private static void refazHeap(ConjuntoMultas multas, int n, int i) 
+	private static void refazHeap(Colecao<Item> colecao, int n, int i) 
 	{
 		int maior = i;
 		int esquerda = 2 * i + 1;
 		int direita = 2 * i + 2;
 
-		if (esquerda < n && comparar(multas.get(esquerda),multas.get(maior)) > 0)
+		if (esquerda < n && colecao.get(esquerda).compareTo(colecao.get(maior)) > 0)
 			maior = esquerda;
 
-		if (direita < n && comparar(multas.get(direita),multas.get(maior)) > 0)
+		if (direita < n && colecao.get(direita).compareTo(colecao.get(maior)) > 0)
 			maior = direita;
 
 		if (maior != i) 
 		{
-			multas.trocar(i, maior);
-			refazHeap(multas, n, maior);
-		}
-	}
-	
-	private static int comparar(Multa multa1, Multa multa2)
-	{
-		String placa1 = multa1.getPlaca(); 
-		String placa2 = multa2.getPlaca();
-		int comparacaoPlaca = placa1.compareTo(placa2); 
-		
-		if (comparacaoPlaca != 0)
-			return comparacaoPlaca;
-		else 
-		{
-			Data data1 = multa1.getData();
-			Data data2 = multa2.getData();
-			int comparacaoData = data1.compareTo(data2);
-			
-			if (comparacaoData != 0)
-				return comparacaoData;
-			else
-			{
-				Horario horario1 = multa1.getHorario();
-				Horario horario2 = multa2.getHorario();
-				return horario1.compareTo(horario2);
-			}
+			colecao.trocar(i, maior);
+			refazHeap(colecao, n, maior);
 		}
 	}
 
 	// Método de ordenação QuickSort
-	public static void ordenarComQuickSort (ConjuntoMultas multas) {quickSort (0, multas.getQuant() - 1, multas);}
-	private static void quickSort (int esq, int dir, ConjuntoMultas multas)
+	public static void ordenarComQuickSort(Colecao<?> colecao) 
 	{
-		Multa pivo;
+		quickSort(0, colecao.size() - 1, (Colecao<Item>) colecao);
+	}
+	
+	private static void quickSort (int esq, int dir, Colecao<Item> colecao)
+	{
+		Item pivo;
 		int i = esq, j = dir;
-		pivo = multas.get((i+j)/2);
+		pivo = colecao.get((i + j) / 2);
 		do 
 		{
-			while (comparar(multas.get(i), pivo) < 0)
+			while (colecao.get(i).compareTo(pivo) < 0)
 				i++;
-			while (comparar(multas.get(j), pivo) > 0)
+			while (colecao.get(j).compareTo(pivo) > 0)
 				j--;
 			if (i <= j) 
 			{
-				multas.trocar(i, j);
+				colecao.trocar(i, j);
 				i++;
 				j--;
 			}
 		} while (i <= j);
 		if (esq < j)
-			quickSort(esq, j, multas);
+			quickSort(esq, j, colecao);
 		if (dir > i)
-			quickSort(i, dir, multas);
+			quickSort(i, dir, colecao);
+	}
+	
+	// Método de ordenção Inserção Direta
+	private static void insercaoDireta(Colecao<Item> colecao)
+	{
+		int i, j; 
+		Item temp;
+		for (i=1; i < colecao.size(); i++)
+		{
+			temp = colecao.get(i);
+			j = i - 1;
+			while ((j >= 0) && (colecao.get(j).compareTo(temp) > 0))
+			{
+				colecao.set(j+1, colecao.get(j));
+				j--;
+			}
+			colecao.set(j+1, temp);
+		}
+	}
+	
+	// Método de ordenação QuickSort com Inserção Direta
+	public static void ordenarComQuickSortInsercaoDireta(Colecao<?> colecao)
+	{
+		quickSortInsercaoDireta(0, colecao.size() - 1, (Colecao<Item>) colecao);
+	}
+	
+	private static void quickSortInsercaoDireta(int esq, int dir, Colecao<Item> colecao)
+	{
+		if (dir - esq <= 20)
+			insercaoDireta(colecao);
+		else
+		{
+			Item pivo;
+			int i = esq, j = dir;
+			pivo = colecao.get((i+j)/2);
+			do {
+				while (colecao.get(i).compareTo(pivo) < 0)
+					i++;
+				while (colecao.get(j).compareTo(pivo) > 0)
+					j--;
+				if (i <= j) 
+				{
+					colecao.trocar(i, j);
+					i++;
+					j--;
+				}
+			} while (i <= j);
+			if (esq < j)
+				quickSortInsercaoDireta(esq, j, colecao);
+			if (dir > i)
+				quickSortInsercaoDireta(i, dir, colecao);
+		}
 	}
 }
