@@ -3,6 +3,8 @@ package models;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import models.interfaces.Colecao;
+
 public class ColecaoMultas implements Colecao<Multa>
 {
 	private ArrayList<Multa> multas;
