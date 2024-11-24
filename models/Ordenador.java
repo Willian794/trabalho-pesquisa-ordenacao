@@ -1,8 +1,12 @@
 package models;
 
+import models.interfaces.Colecao;
+import models.interfaces.Item;
+
 public class Ordenador
 {
 	// Método de Ordenção HeapSort
+	@SuppressWarnings("unchecked")
 	public static void ordenarComHeapSort(Colecao<?> colecao)
 	{ 
 		int n = colecao.size();
@@ -37,6 +41,7 @@ public class Ordenador
 	}
 
 	// Método de ordenação QuickSort
+	@SuppressWarnings("unchecked")
 	public static void ordenarComQuickSort(Colecao<?> colecao) 
 	{
 		quickSort(0, colecao.size() - 1, (Colecao<Item>) colecao);
@@ -85,6 +90,7 @@ public class Ordenador
 	}
 	
 	// Método de ordenação QuickSort com Inserção Direta
+	@SuppressWarnings("unchecked")
 	public static void ordenarComQuickSortInsercaoDireta(Colecao<?> colecao)
 	{
 		quickSortInsercaoDireta(0, colecao.size() - 1, (Colecao<Item>) colecao);
