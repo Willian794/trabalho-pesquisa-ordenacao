@@ -3,7 +3,7 @@ package main;
 import java.io.IOException;
 
 import models.Arquivo;
-import models.ConjuntoMultas;
+import models.ColecaoMultas;
 import models.Multa;
 import models.Ordenador;
 import models.Cronometrador;
@@ -13,7 +13,7 @@ public class Atividade1
 {
 	public static void main(String[] args) throws IOException
 	{
-		ConjuntoMultas multas = new ConjuntoMultas(new Arquivo("dados/originais/multa20iguais.txt"));
+		ColecaoMultas multas = new ColecaoMultas(new Arquivo("dados/originais/multa20iguais.txt"));
 		Cronometrador cronometrador = new Cronometrador();
 		
 		cronometrador.iniciar();

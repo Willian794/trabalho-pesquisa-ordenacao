@@ -13,7 +13,7 @@ public class Atividade3
 {
 	public static void main(String[] args) throws IOException
 	{
-		ColecaoMultas multas = new ColecaoMultas(new Arquivo("dados/originais/multa20alea.txt"));
+		ColecaoMultas multas = new ColecaoMultas(new Arquivo("dados/multa10000alea.txt"));
 		Cronometrador cronometrador = new Cronometrador();
 		
 		cronometrador.iniciar();
