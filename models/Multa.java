@@ -1,5 +1,7 @@
 package models;
 
+import models.interfaces.Item;
+
 public class Multa implements Item
 {
 	private String placa, nome, local; 
