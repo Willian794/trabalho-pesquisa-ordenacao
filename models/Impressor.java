@@ -74,4 +74,9 @@ public class Impressor
 			System.out.println("NÃO TEM MULTA");
 		System.out.println();
 	}
+	
+	public static void imprimirResultadoAlgoritmo(String algoritmo, String arquivo, double tempo)
+	{
+		System.out.println(algoritmo + " - " + arquivo + ": " + tempo + " milisegundos.");
+	}
 }
