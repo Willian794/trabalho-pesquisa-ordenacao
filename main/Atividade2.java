@@ -5,9 +5,8 @@ import java.io.IOException;
 import models.Arquivo;
 import models.ColecaoMultas;
 import models.Cronometrador;
-import models.Impressor;
 import models.Cronometrador.MedidaTempo;
-import models.Multa;
+import models.Impressor;
 import models.Ordenador;
 
 public class Atividade2 

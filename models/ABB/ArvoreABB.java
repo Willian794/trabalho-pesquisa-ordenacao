@@ -45,37 +45,21 @@ public class ArvoreABB
 		return pesquisar (chave, this.raiz);
 	}
 	
-	private NoAbb pesquisar(String chave, NoAbb no) {
-	    while (no != null) {
+	private NoAbb pesquisar(String chave, NoAbb no) 
+	{
+	    while (no != null) 
+	    {
 	        int comparacao = chave.compareTo((String) no.getItem().getChavePrimaria());
 	        
-	        if (comparacao == 0) {
+	        if (comparacao == 0)
 	            return no;
-	        } else if (comparacao > 0) {
+	        else if (comparacao > 0)
 	            no = no.getDir();
-	        } else {
+	        else
 	            no = no.getEsq();
-	        }
 	    }
 	    return null;
 	}
-
-	/*
-	private NoAbb pesquisar(String chave, NoAbb no) 
-	{
-		if (no == null)
-			return null;
-		
-		int comparacao = chave.compareTo((String) no.getItem().getChavePrimaria());
-		
-		if (comparacao == 0)
-			return no;
-		else if (comparacao > 0)
-			return pesquisar(chave, no.getDir());
-		else
-			return pesquisar(chave, no.getEsq());
-	}
-	*/
 		
 	public void inserir (Item item) 
 	{
@@ -88,39 +72,24 @@ public class ArvoreABB
 		NoAbb atual = no;
 		NoAbb pai = null;
 
-		while (atual != null) {
-			pai = atual;
-			if (((String) item.getChavePrimaria()).compareTo((String) atual.getItem().getChavePrimaria()) > 0) {
-				atual = atual.getDir();
-			} else {
-				atual = atual.getEsq();
-			}
-		}
-
-		if (pai == null) {
-			return new NoAbb(item);
-		} else if (((String) item.getChavePrimaria()).compareTo((String) pai.getItem().getChavePrimaria()) > 0) {
-			pai.setDir(new NoAbb(item));
-		} else {
-			pai.setEsq(new NoAbb(item));
-		}
-
-		return no;
-	}
-	/*
-	private NoAbb inserir (Item item, NoAbb no) 
-	{
-		if (no == null) 
+		while (atual != null) 
 		{
-			no = new NoAbb(item);
-		} else if (((String) item.getChavePrimaria()).compareTo((String) no.getItem().getChavePrimaria()) > 0) {
-			no.setDir(inserir(item, no.getDir()));
-		} else {
-			no.setEsq(inserir(item, no.getEsq()));
+			pai = atual;
+			if (((String) item.getChavePrimaria()).compareTo((String) atual.getItem().getChavePrimaria()) > 0)
+				atual = atual.getDir();
+			else
+				atual = atual.getEsq();
 		}
+
+		if (pai == null)
+			return new NoAbb(item);
+		else if (((String) item.getChavePrimaria()).compareTo((String) pai.getItem().getChavePrimaria()) > 0)
+			pai.setDir(new NoAbb(item));
+		else
+			pai.setEsq(new NoAbb(item));
+
 		return no;
 	}
-	*/
 	
 	public void remover (String chave) 
 	{
@@ -167,8 +136,10 @@ public class ArvoreABB
 	    Stack<NoAbb> stack = new Stack<>();
 	    NoAbb atual = no;
 
-	    while (atual != null || !stack.isEmpty()) {
-	        while (atual != null) {
+	    while (atual != null || !stack.isEmpty()) 
+	    {
+	        while (atual != null) 
+	        {
 	            stack.push(atual);
 	            atual = atual.getEsq();
 	        }
@@ -180,19 +151,6 @@ public class ArvoreABB
 
 	    return vetor;
 	}
-
-	/*
-	private ArrayList<Item> fazCamCentral (NoAbb no, ArrayList<Item> vetor) 
-	{
-		if (no != null) 
-		{
-			vetor = this.fazCamCentral(no.getEsq(), vetor);
-			vetor.add(no.getItem());
-			vetor = this.fazCamCentral(no.getDir(), vetor);
-		}
-		return vetor;
-	}
-	*/
 	
 	public ArvoreABB balancear () 
 	{
