@@ -33,6 +33,12 @@ public class Multa implements Item
 	public Object getChaveTerciaria() {return this.getHorario();}
 
 	@Override
+	public Object getChaveQuarternaria() {return this.getNome();}
+
+	@Override
+	public Object getUltimaChave() {return this.getLocal();}
+	
+	@Override
 	public int compareTo(Item itemComparacao) {
 		String placa1 = this.getPlaca(); 
 		String placa2 = (String) itemComparacao.getChavePrimaria();
