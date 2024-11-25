@@ -1,11 +1,11 @@
-package models.arvoreBinaria;
+package models.ABB;
 
 import models.interfaces.Item;
 
 public class NoAbb
 {
-	private Item item;
-	private NoAbb esq, dir;
+	protected Item item;
+	protected NoAbb esq, dir;
 	
 	public NoAbb(Item item) 
 	{

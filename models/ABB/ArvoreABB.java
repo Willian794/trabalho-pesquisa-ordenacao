@@ -1,6 +1,7 @@
-package models.arvoreBinaria;
+package models.ABB;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import models.Arquivo;
 import models.Data;
@@ -8,20 +9,20 @@ import models.Horario;
 import models.Multa;
 import models.interfaces.Item;
 
-public class Abb 
+public class ArvoreABB
 {
-	private NoAbb raiz;
-	private int quant;
+	protected NoAbb raiz;
+	protected int quant;
 	
-	public Abb() 
+	public ArvoreABB() 
 	{
 		this.raiz = null;
 		this.quant = 0;
 	}
 	
-	public Abb(Arquivo arquivo)
+	public ArvoreABB(Arquivo arquivo)
 	{
-		ArrayList<String> linhas = arquivo.lerLinhas();
+		LinkedList<String> linhas = arquivo.lerLinhas();
 		String[] vetCampos;
 		for (String linha : linhas)
 		{
@@ -58,11 +59,10 @@ public class Abb
 			return pesquisar(chave, no.getEsq());
 	}
 		
-	public boolean inserir (Item item) 
+	public void inserir (Item item) 
 	{
 		this.raiz = inserir (item, this.raiz);
 		this.quant++;
-		return true;
 	}
 	
 	private NoAbb inserir (Item item, NoAbb no) 
@@ -130,15 +130,15 @@ public class Abb
 		return vetor;
 	}
 	
-	public Abb balancear () 
+	public ArvoreABB balancear () 
 	{
-		Abb arv = new Abb();
+		ArvoreABB arv = new ArvoreABB();
 		ArrayList<Item> vetor = CamCentral();
 		balancear (vetor, arv, 0, quant-1);
 		return arv;
 	}
 
-	private void balancear (ArrayList<Item> vetor, Abb arv,int inicio, int fim) 
+	private void balancear (ArrayList<Item> vetor, ArvoreABB arv,int inicio, int fim) 
 	{
 		int meio;
 		if (inicio <= fim) 
