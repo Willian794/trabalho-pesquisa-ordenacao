@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Arquivo extends File
 {
@@ -19,11 +19,11 @@ public class Arquivo extends File
 		super(caminhoArquivo);
 	}
 	
-	public ArrayList<String> lerLinhas()
+	public LinkedList<String> lerLinhas()
 	{
 		try 
 		{
-			ArrayList<String> conteudo = new ArrayList<>();
+			LinkedList<String> conteudo = new LinkedList<>();
 			BufferedReader reader = new BufferedReader(new FileReader(super.getPath()));
 			String conteudoLinha = reader.readLine();
 			
