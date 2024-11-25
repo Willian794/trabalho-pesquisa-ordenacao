@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 import models.Arquivo;
+import models.Cronometrador;
+import models.Cronometrador.MedidaTempo;
 import models.Impressor;
 import models.ABB.ArvoreABB;
 import models.ABB.NoAbb;
@@ -12,16 +14,144 @@ public class Atividade4
 {
 	public static void main(String[] args) throws IOException
 	{
-		ArvoreABB arvore = new ArvoreABB(new Arquivo("dados/multa50000alea.txt"));
+		rodarExercicio4();
+	}
+	
+	public static void rodarExercicio4() throws IOException
+	{
+		String estrutura = "ABB";
+		Arquivo arquivoEntrada, arquivoResultado;
+		String nomeArquivo;
+		
+		nomeArquivo = "multa10000alea.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+		
+		nomeArquivo = "multa10000inv.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+		
+		nomeArquivo = "multa10000ord.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+		
+		nomeArquivo = "multa1000alea.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+		
+		nomeArquivo = "multa1000inv.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+		
+		nomeArquivo = "multa1000ord.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+		
+		nomeArquivo = "multa50000alea.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+		
+		nomeArquivo = "multa50000inv.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+		
+		nomeArquivo = "multa50000ord.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+		
+		nomeArquivo = "multa5000alea.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+		
+		nomeArquivo = "multa5000inv.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+		
+		nomeArquivo = "multa5000ord.txt";
+		arquivoEntrada = new Arquivo(nomeArquivo);
+		arquivoResultado = new Arquivo(Todos.gerarNomeSaida(estrutura, nomeArquivo));
+		Impressor.imprimirResultadoAlgoritmo(estrutura, nomeArquivo, pesquisar(arquivoEntrada, arquivoResultado));
+	}
+	
+	public static void pesquisaBinariaEmABB(Arquivo arquivoEntrada, Arquivo arquivoSaida) throws IOException
+	{
+		String resultado = "";
+		ArvoreABB arvore = new ArvoreABB(arquivoEntrada); 
 		arvore.balancear();
-		LinkedList<String> registros = new Arquivo("dados/placas.txt").lerLinhas();
-		for (String registro : registros)
+		LinkedList<String> placas = new Arquivo("placas.txt").lerLinhas(); 
+		
+		for (String placa : placas)
 		{
-			NoAbb noPesquisa = arvore.pesquisar(registro);
-			if (noPesquisa == null)
-				System.out.printf("PLACA %s:%nNAO TEM MULTA %n%n", registro);
+			NoAbb noPesquisado = arvore.pesquisar(placa);
+			if (noPesquisado == null)
+				resultado += String.format("PLACA %s:%nNAO TEM MULTA %n%n", placa);
 			else
-				Impressor.imprimir(noPesquisa);
+				resultado += aglomerarMultas(noPesquisado);
 		}
+		
+		arquivoSaida.sobreescrever(resultado);
+	}
+	
+	public static double pesquisar(Arquivo arquivoEntrada, Arquivo arquivoSaida) throws IOException
+	{
+		int vezes = 5;
+		Cronometrador cronometro = new Cronometrador();
+		
+		cronometro.iniciar();
+		for (int i = 0; i < vezes; i++)
+			pesquisaBinariaEmABB(arquivoEntrada, arquivoSaida);
+		cronometro.finalizar();
+		
+		return cronometro.getDeltaTempo(MedidaTempo.MILISEGUNDOS) / vezes;
+	}
+	
+	public static String aglomerarMultas(NoAbb no)
+	{
+		String multas = "";
+		if (no != null)
+		{
+			multas += String.format("PLACA %s:%n", no.getItem().getChavePrimaria());
+			multas += aglomerarMultasComCampos(no) + "\n";
+		} 
+		return multas;
+	}
+	
+	private static String aglomerarMultasComCampos(NoAbb no)
+	{
+		String conteudo = "";
+		String local = (String) no.getItem().getUltimaChave();
+		String data = (String) no.getItem().getChaveSecundaria().toString(); 
+		String horario = (String) no.getItem().getChaveTerciaria().toString(); 
+		
+		conteudo += "Local: " + adicionarPularProximaColuna(local);
+		conteudo += "Data: " + data + adicionarPularProximaColuna(data);
+		conteudo += "Horario: " + horario + adicionarPularProximaColuna(horario) + "\n";
+		
+		if (no.getEsq() != null)
+		{
+			String chavePrimaria = (String) no.getItem().getChavePrimaria();
+			String aux = (String) no.getEsq().getItem().getChavePrimaria();
+			if (chavePrimaria.equals(aux))
+				conteudo += aglomerarMultasComCampos(no.getEsq());
+		}
+		return conteudo;
+	}
+	
+	private static String adicionarPularProximaColuna(String conteudo)
+	{
+		while (conteudo.length() < 50)
+			conteudo += " ";
+		return conteudo;
 	}
 }
