@@ -91,4 +91,13 @@ public class ColecaoMultas implements Colecao<Multa>
 		quant--;
 		return multas.remove(indice);
 	}
+
+	@Override
+	public String toString() 
+	{
+		String conteudo = "";
+		for (Multa multa : multas)
+			conteudo += multa.getPlaca() + ";" + multa.getNome() + ";" + multa.getLocal() + ";" + multa.getData() + ";" + multa.getHorario() + "\n";
+		return conteudo.substring(0, conteudo.length() - 1);
+	}
 }
