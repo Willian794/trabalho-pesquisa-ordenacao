@@ -1,6 +1,9 @@
 package models;
 
-import models.arvoreBinaria.NoAbb;
+import java.util.LinkedList;
+
+import models.ABB.NoAbb;
+import models.interfaces.Item;
 
 public class Impressor 
 {
@@ -16,12 +19,19 @@ public class Impressor
 	
 	private static void imprimirItem(NoAbb no)
 	{
-		System.out.printf(
-			"Local: %s     " + "Data: %s     " + "Hora: %s%n",
-			(String) no.getItem().getChavePrimaria(),
-			(String) no.getItem().getChaveSecundaria().toString(),
-			(String) no.getItem().getChaveTerciaria().toString()
-		);
+		String local = (String) no.getItem().getUltimaChave();
+		String data = (String) no.getItem().getChaveSecundaria().toString(); 
+		String horario = (String) no.getItem().getChaveTerciaria().toString(); 
+		
+		System.out.print("Local: ");
+		imprimirPularProximaColuna(local);
+		
+		System.out.print("Data: ");
+		imprimirPularProximaColuna(data);
+		
+		System.out.print("Horario: ");
+		imprimirPularProximaColuna(horario);
+		System.out.println();
 		
 		if (no.getEsq() != null)
 		{
@@ -30,5 +40,38 @@ public class Impressor
 			if (chavePrimaria.equals(aux))
 				imprimirItem(no.getEsq());
 		}
+	}
+	
+	private static void imprimirPularProximaColuna(String conteudo)
+	{
+		while (conteudo.length() < 50)
+			conteudo += " ";
+		System.out.print(conteudo);
+	}
+	
+	public static void imprimir(LinkedList<? extends Item> lista)
+	{
+		if (lista != null && lista.size() > 0)
+		{
+			for (Item item : lista)
+			{
+				String local = (String) item.getUltimaChave();
+				String data = (String) item.getChaveSecundaria().toString(); 
+				String horario = (String) item.getChaveTerciaria().toString(); 
+				
+				System.out.print("Local: ");
+				imprimirPularProximaColuna(local);
+				
+				System.out.print("Data: ");
+				imprimirPularProximaColuna(data);
+				
+				System.out.print("Horario: ");
+				imprimirPularProximaColuna(horario);
+				System.out.println();
+			}
+		}
+		else
+			System.out.println("NÃO TEM MULTA");
+		System.out.println();
 	}
 }
