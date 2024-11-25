@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import models.interfaces.Colecao;
 
@@ -14,7 +15,7 @@ public class ColecaoMultas implements Colecao<Multa>
 	{
 		this.multas = new ArrayList<>();
 		this.quant = 0;
-		ArrayList<String> linhas = arquivo.lerLinhas();
+		LinkedList<String> linhas = arquivo.lerLinhas();
 		String[] vetCampos;
 		for (String linha : linhas)
 		{
