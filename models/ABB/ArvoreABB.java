@@ -2,6 +2,7 @@ package models.ABB;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Stack;
 
 import models.Arquivo;
 import models.Data;
@@ -44,6 +45,22 @@ public class ArvoreABB
 		return pesquisar (chave, this.raiz);
 	}
 	
+	private NoAbb pesquisar(String chave, NoAbb no) {
+	    while (no != null) {
+	        int comparacao = chave.compareTo((String) no.getItem().getChavePrimaria());
+	        
+	        if (comparacao == 0) {
+	            return no;
+	        } else if (comparacao > 0) {
+	            no = no.getDir();
+	        } else {
+	            no = no.getEsq();
+	        }
+	    }
+	    return null;
+	}
+
+	/*
 	private NoAbb pesquisar(String chave, NoAbb no) 
 	{
 		if (no == null)
@@ -58,6 +75,7 @@ public class ArvoreABB
 		else
 			return pesquisar(chave, no.getEsq());
 	}
+	*/
 		
 	public void inserir (Item item) 
 	{
@@ -65,18 +83,44 @@ public class ArvoreABB
 		this.quant++;
 	}
 	
+	private NoAbb inserir(Item item, NoAbb no) 
+	{
+		NoAbb atual = no;
+		NoAbb pai = null;
+
+		while (atual != null) {
+			pai = atual;
+			if (((String) item.getChavePrimaria()).compareTo((String) atual.getItem().getChavePrimaria()) > 0) {
+				atual = atual.getDir();
+			} else {
+				atual = atual.getEsq();
+			}
+		}
+
+		if (pai == null) {
+			return new NoAbb(item);
+		} else if (((String) item.getChavePrimaria()).compareTo((String) pai.getItem().getChavePrimaria()) > 0) {
+			pai.setDir(new NoAbb(item));
+		} else {
+			pai.setEsq(new NoAbb(item));
+		}
+
+		return no;
+	}
+	/*
 	private NoAbb inserir (Item item, NoAbb no) 
 	{
 		if (no == null) 
 		{
 			no = new NoAbb(item);
 		} else if (((String) item.getChavePrimaria()).compareTo((String) no.getItem().getChavePrimaria()) > 0) {
-			no.setDir(inserir (item, no.getDir()));
+			no.setDir(inserir(item, no.getDir()));
 		} else {
-			no.setEsq(inserir (item, no.getEsq()));
+			no.setEsq(inserir(item, no.getEsq()));
 		}
 		return no;
 	}
+	*/
 	
 	public void remover (String chave) 
 	{
@@ -119,6 +163,25 @@ public class ArvoreABB
 		return (fazCamCentral(this.raiz, vetor));
 	}
 	
+	private ArrayList<Item> fazCamCentral(NoAbb no, ArrayList<Item> vetor) {
+	    Stack<NoAbb> stack = new Stack<>();
+	    NoAbb atual = no;
+
+	    while (atual != null || !stack.isEmpty()) {
+	        while (atual != null) {
+	            stack.push(atual);
+	            atual = atual.getEsq();
+	        }
+
+	        atual = stack.pop();
+	        vetor.add(atual.getItem());
+	        atual = atual.getDir();
+	    }
+
+	    return vetor;
+	}
+
+	/*
 	private ArrayList<Item> fazCamCentral (NoAbb no, ArrayList<Item> vetor) 
 	{
 		if (no != null) 
@@ -129,6 +192,7 @@ public class ArvoreABB
 		}
 		return vetor;
 	}
+	*/
 	
 	public ArvoreABB balancear () 
 	{
