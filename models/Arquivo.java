@@ -48,6 +48,13 @@ public class Arquivo extends File
 		return contador;
 	}
 	
+	public void sobreescrever(String conteudo) throws IOException
+	{
+		BufferedWriter writer = new BufferedWriter(new FileWriter(super.getPath()));
+		writer.write(conteudo);
+		writer.close();
+	}
+	
 	public boolean escrever(String conteudo)
 	{
 		return this.escrever(this.contarLinhas(), conteudo);
